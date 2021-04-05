@@ -1,15 +1,5 @@
 const winston = require('winston');
 
-const findThing = (thing, search) => {
-  let result = null;
-  Object.keys(search).forEach((key) => {
-    if (key === thing) {
-      result = search[key];
-    }
-  });
-  return result;
-};
-
 const winstonLogger = winston.createLogger({
   level: 'info',
   transports: [
@@ -20,7 +10,6 @@ const winstonLogger = winston.createLogger({
 });
 
 module.exports = ('/', (req, res, next) => {
-  findThing(req, res);
   winstonLogger.log('info', {
     Epoch: req.secondsSinceEpoch = Math.round(Date.now() / 1000),
     method: req.method,
