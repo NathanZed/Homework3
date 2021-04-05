@@ -1,35 +1,31 @@
-import { ReasonPhrases, StatusCodes } from 'http-status-codes';
-
-import express from 'express';
-import bodyParser from 'body-parser';
-import winston from 'winston';
+const express = require('express');
+const bodyParser = require('body-parser');
+const Router = require('./Router');
+const Logger = require('./loggerMiddleware');
+// const Handling = require('./errorHandling'); remember res.send();
 
 const app = express();
+
 app.use(bodyParser.json());
+app.use(Logger);
+app.use(Router);
+// app.use(errorHandler);
 
-// Winston
-const winstonLogger = winston.createLogger({
-  transports: [
-    new winston.transports.Console({
-      format: winston.format.simple(),
-    }),
-  ],
-});
+/*
+const findThing = (thing, search) => {
+    let result = null;
+    Object.keys(search).forEach((key) => {
+        if (key === thing) {
+            result = search[key];
+        }
+    });
+    return result;
+};
 
-app.use((reg, res, next) => {
-  winstonLogger.info(reg.method);
+router.use((req, res, next) => {
+  winstonLogger.info(findThing(dateValidation, secondsSinceEpoch));
   next();
 });
-
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
-
-app.delete('/', (req, res) => {
-  res
-    .status(StatusCodes.INTERNAL_SERVER_ERROR)
-    .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
-});
+*/
 
 app.listen(8080);
-winstonLogger.info('It connects to port 8080');
