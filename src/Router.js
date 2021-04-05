@@ -7,7 +7,7 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-router.all('/', (req, res) => {
+module.exports = router.all('/', (req, res) => {
   const result = random(1, 2);
   if (result === 1) {
     res
@@ -18,5 +18,3 @@ router.all('/', (req, res) => {
     throw new Error('Oops');
   }
 });
-
-module.exports = router;
