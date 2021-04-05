@@ -1,7 +1,6 @@
 const winston = require('winston');
 
 const winstonLogger = winston.createLogger({
-  level: 'info',
   transports: [
     new winston.transports.Console({
       format: winston.format.simple(),
