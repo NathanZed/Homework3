@@ -1,7 +1,5 @@
-// const express = require('express');
 const winston = require('winston');
 
-// const app = express();
 const findThing = (thing, search) => {
   let result = null;
   Object.keys(search).forEach((key) => {
@@ -22,13 +20,15 @@ const winstonLogger = winston.createLogger({
 });
 
 module.exports = ('/', (req, res, next) => {
+  findThing(req, res);
   winstonLogger.log('info', {
-    Epoch: req.method,
+    Epoch: req.secondsSinceEpoch = Math.round(Date.now() / 1000),
     method: req.method,
-    url: req.url,
+    url: req.originalUrl,
     body: req.body,
     query: req.query,
     headers: req.headers,
+    date_Validation: req.dateValidation = Math.round(Date.now() / 1000) - 300,
   });
   next();
 });
